@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+sum=0
+while [ $sum -lt 10 ]
+do
+	echo "Best School"
+	(( sum++))
+done
