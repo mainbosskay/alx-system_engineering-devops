@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Sorting the data so you can get a better idea of what is going on
+# Bash script that groups visitors by IP and HTTP status code
+filenm="apache-access.log"
+if test -f $filenm
+then
+	awk '{print $1,$9}' $filenm | sort | uniq -c | sort -gr
+fi
