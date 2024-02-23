@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Bash script that:
+# Bash script that
 # Creates the file /var/run/myscript.pid containing its PID
 # Displays To infinity and beyond indefinitely
 # Displays I hate the kill command when receiving a SIGTERM signal
@@ -7,7 +7,7 @@
 # Deletes the file /var/run/myscript.pid
 pid_fl='rm /var/run/myscript.pid; exit $?'
 echo $$ > "/var/run/myscript.pid"
-trap 'echo "I hate the kill command"; '"$cleanup" SIGTERM
+trap 'echo "I hate the kill command"; '"$pid_fl" SIGTERM
 trap 'echo "Y U no love me?!"' SIGINT
 trap ''"$pid_fl" SIGQUIT
 while true;
