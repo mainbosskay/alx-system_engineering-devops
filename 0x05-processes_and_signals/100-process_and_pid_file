@@ -20,7 +20,6 @@ handle_sigterm() {
 	echo "I hate the kill command"
 }
 trap 'handle_sigterm' SIGTERM
-echo $$ > "$pidfl"
 while true; do
 	echo "To infinity and beyond"
 	sleep 2
