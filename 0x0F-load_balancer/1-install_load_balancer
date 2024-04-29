@@ -5,9 +5,9 @@ sudo apt-get update
 sudo apt-get install -y software-properties-common
 sudo add-apt-repository -y ppa:vbernat/haproxy-2.4
 sudo apt-get -y install haproxy
-WEBSITE_DOMAIN="thisisteey.tech"
+WEBSITE_DOMAIN="mainbosskay.tech"
 LB_INIT_FILE="/etc/default/haproxy"
-LB_CONFIG_FILE="/etc/haproxy/haproxy.cfg"
+LB_SETUP_FILE="/etc/haproxy/haproxy.cfg"
 LB_SETUP=\
 "
 #--$WEBSITE_DOMAIN-params-begin--
@@ -24,9 +24,9 @@ frontend $WEBSITE_DOMAIN-frontend
 "
 
 [ -f "$LB_INIT_FILE" ] || touch "$LB_INIT_FILE"
-[ -f "$LB_CONFIG_FILE" ] || touch "$LB_CONFIG_FILE"
+[ -f "$LB_SETUP_FILE" ] || touch "$LB_SETUP_FILE"
 
-BACKEND_SETUP=$(grep -Eco "$WEBSITE_DOMAIN-backend" < $LB_CONFIG_FILE)
+BACKEND_SETUP=$(grep -Eco "$WEBSITE_DOMAIN-backend" < $LB_SETUP_FILE)
 
 if [ "$(grep -Eco "^ENABLED=[01]$" < $LB_INIT_FILE)" -gt 0 ];
 then
@@ -37,16 +37,16 @@ fi
 
 if [ "$BACKEND_SETUP" -eq 0 ];
 then
-	echo -e "$LB_SETUP" >> $LB_CONFIG_FILE
+	echo -e "$LB_SETUP" >> $LB_SETUP_FILE
 else
 	config_start="#--$WEBSITE_DOMAIN-params-begin--"
 	config_end="#--$WEBSITE_DOMAIN-params-end--"
-	x=$(grep -onE "$config_start" < "$LB_CONFIG_FILE" | cut -d : -f1)
-	y=$(grep -onE "$config_end" < "$LB_CONFIG_FILE" | cut -d : -f1)
+	x=$(grep -onE "$config_start" < "$LB_SETUP_FILE" | cut -d : -f1)
+	y=$(grep -onE "$config_end" < "$LB_SETUP_FILE" | cut -d : -f1)
 	x=$((x - 1))
 	y=$((y + 1))
-	sed -i "$x,$y"d "$LB_CONFIG_FILE"
-	echo -en "$LB_SETUP" >> $LB_CONFIG_FILE
+	sed -i "$x,$y"d "$LB_SETUP_FILE"
+	echo -en "$LB_SETUP" >> $LB_SETUP_FILE
 fi
 
 if [ "$(pgrep -c haproxy)" -le 0 ];
