@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Bash Script with the minimum number of commands to automate your fix
+NGINX_SETUP="/etc/nginx/sites-enabled/default"
+sed -i 's/listen 8080/listen 80/g' "$NGINX_SETUP"
+sed -i 's/listen \[::\]:8080/listen \[::\]:80/g' "$NGINX_SETUP"
+pgrep nginx > /dev/null && nginx -s reload
+echo '' > /run/nginx.pid
