@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Adding subdomain to domains and display information about subdomains
+Display_Info() {
+	domain="$1"
+	subdomains=()
+	readarray -t subdomains < <(echo "$2" | tr ' ' '\n')
+	for ((k = 0; k < "${#subdomains[@]}"; k++)) do
+		subdomain="${subdomains[k]}"
+		awk_text='{print "The subdomain", "'
+		awk_text="$awk_text$subdomain is a"
+		awk_text="$awk_text\", \$7, \"record and points to\", \$8}"
+		dig "$subdomain.$domain" \
+			| grep -A1 'ANSWER SECTION:' \
+			| tr '\n' ' ' \
+			| awk "$awk_text"
+	done
+}
+
+if [ "${#BASH_ARGV[@]}" -ge '2' ]; then
+	Display_Info "$1" "$2"
+elif [ "${#BASH_ARGV[@]}" -ge '1' ]; then
+	Display_Info "$1" "www lb-01 web-01 web-02"
+else
+	exit
+fi
