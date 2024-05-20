@@ -15,7 +15,7 @@ if __name__ == "__main__":
             empy_id = int(argv[1])
             empy_resp = get(f"{API_URL}/users/{empy_id}").json()
             tsk_rep = get(f"{API_URL}/todos").json()
-            empy_name = empy_resp.get("name")
+            empy_name = empy_resp.get("username")
             tasks = list(filter(lambda k: k.get("userId") == empy_id, tsk_rep))
             with open(f"{empy_id}.csv", "w") as fl:
                 for tsk in tasks:
