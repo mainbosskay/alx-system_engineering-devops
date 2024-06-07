@@ -1,6 +1,8 @@
 # Maze Project Outage
 June 1, 2024
 
+![Postmortem Maze postmortem](post-mortem-meetings.jpg)
+
 * Following the service disruption of the Maze Project on June 1, 2024, this incident report aims to provide a comprehensive overview of the events that led to the interruption of our platform's functionality. We recognize the significant impact this incident had on our users and sincerely apologize for any inconvenience experienced during this period.
 
 ## Issue Summary
