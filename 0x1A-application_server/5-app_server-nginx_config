@@ -14,8 +14,8 @@ server {
 	# add_header X-Served-By $hostname;
 
 	# Configuring /2-hbnb route of AirBnB_clone_v4 as root location
-	location /2-hbnb/ {
-		proxy_pass http://localhost:5003;
+	location / {
+		proxy_pass http://localhost:5003/2-hbnb;
 	}
 
 	# Request to configure to the root
