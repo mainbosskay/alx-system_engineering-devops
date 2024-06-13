@@ -1,4 +1,4 @@
-erve route /api/ to Gunicorn on port 5002
+# Serving AirBnB clone - Web dynamic on web-01
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
